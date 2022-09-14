@@ -10,7 +10,7 @@ app.post("/ads", (req, res) => {
   return res.status(201).json([]);
 });
 
-app.get("/games/:id/ads", (request, response) => {
+app.get("/games/:id/ads", (request, response) => {  
   // const gameId = request.params.id;
 
   return response.json([
