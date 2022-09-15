@@ -1,11 +1,31 @@
-import { GamerBanner } from './components/GamerBanner';
+import { useState, useEffect } from "react";
+import { GamerBanner } from "./components/GamerBanner";
 
 import "./styles/main.css";
 
 import logoImg from "./assets/logo-nlw.svg";
-import { CreateAdBanner } from './components/CreateAdBanner';
+import { CreateAdBanner } from "./components/CreateAdBanner";
+
+interface Game {
+  id: string;
+  title: string;
+  bannerUrl: string;
+  _count: {
+    ads: number;
+  };
+}
 
 function App() {
+  const [games, setGames] = useState<Game[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3333/games")
+      .then((res) => res.json())
+      .then((data) => {
+        setGames(data);
+      });
+  }, []);
+
   return (
     <div className="max-w-[1344px] mx-auto flex flex-col items-center my-20">
       <img src={logoImg} alt="" />
@@ -19,7 +39,14 @@ function App() {
       </h1>
 
       <div className="grid grid-cols-6 gap-6 mt-16">
-        <GamerBanner bannerUrl="/game-3.png" title="Counter Strike" adsCount={4} />
+        {games.map((game) => (
+          <GamerBanner
+            key={game.id}
+            bannerUrl={game.bannerUrl}
+            title={game.title}
+            adsCount={game._count.ads}
+          />
+        ))}
       </div>
 
       <CreateAdBanner />
