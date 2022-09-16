@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { CreateAdForm } from "./CreateAdForm";
 
-function CreteAdModal() {
+export function CreateAdModal() {
   return (
     <Dialog.Portal>
       <Dialog.Overlay className="bg-black/60 inset-0 fixed" />
